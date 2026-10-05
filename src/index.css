@@ -176,6 +176,10 @@ input.mid {
 .month-name {
   text-transform: capitalize;
 }
+.saved {
+  color: var(--green);
+  margin-right: 8px;
+}
 .backup-info {
   margin-left: auto;
   font-size: 0.9em;

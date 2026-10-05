@@ -30,7 +30,7 @@ function initialMonth(s: AppState): string {
 }
 
 export default function App() {
-  const { state, update, replace, error } = useAppState()
+  const { state, update, replace, error, savedAt } = useAppState()
   const [tab, setTab] = useState<Tab>('miesiac')
   const [miesiac, setMiesiac] = useState<string | null>(null)
   useEffect(() => {
@@ -44,7 +44,8 @@ export default function App() {
     if (!state) return
     const now = new Date().toISOString()
     const s = { ...state, settings: { ...state.settings, ostatniaKopia: now } }
-    downloadFile(`ilosciowy_kopia_${now.slice(0, 10)}.json`, backupJson(s), 'application/json')
+    // Własna końcówka pliku, żeby system nie otwierał kopii w innym programie (np. jako JSON).
+    downloadFile(`ilosciowy_kopia_${now.slice(0, 10)}.ilosciowy`, backupJson(s), 'application/octet-stream')
     update((x) => ({ ...x, settings: { ...x.settings, ostatniaKopia: now } }))
   }
 
@@ -66,6 +67,11 @@ export default function App() {
           <strong className="month-name">{monthLabel(m)}</strong>
         </div>
         <div className="backup-info">
+          {savedAt && (
+            <span className="saved" title="Każda zmiana zapisuje się sama w tej przeglądarce">
+              ✓ Zapisane {savedAt.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          )}{' '}
           Ostatnia kopia: <span className={lastBackup ? '' : 'text-red'}>{fmtDateTime(lastBackup)}</span>{' '}
           <button type="button" onClick={backup}>
             Pobierz kopię

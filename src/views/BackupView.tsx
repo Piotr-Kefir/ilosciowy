@@ -17,8 +17,10 @@ export function BackupView({ state, replace, onBackup }: { state: AppState; repl
     <div>
       <h2>Kopia zapasowa</h2>
       <p>
-        Dane są zapisane <strong>tylko w tej przeglądarce na tym urządzeniu</strong>. Kopia (plik JSON) to jedyny sposób, żeby je
-        przenieść na inne urządzenie albo odzyskać po wyczyszczeniu przeglądarki. Pobieraj ją po każdym zamknięciu miesiąca.
+        Każda zmiana <strong>zapisuje się sama</strong> w tej przeglądarce na tym urządzeniu — nic nie trzeba klikać. Kopia to
+        dodatkowy plik na wypadek zgubienia telefonu, wyczyszczenia przeglądarki albo przenosin na inne urządzenie. Pobieraj ją po
+        każdym zamknięciu miesiąca i trzymaj w jednym folderze (np. iCloud Drive). Plik ma końcówkę <code>.ilosciowy</code> — nie
+        trzeba go otwierać, tylko przechować.
       </p>
       <p>
         Przechowywanie w przeglądarce:{' '}
@@ -45,14 +47,13 @@ export function BackupView({ state, replace, onBackup }: { state: AppState; repl
         W danych: {months.length ? months.map(monthLabel).join(', ') : 'brak miesięcy'}; faktur: {state.invoices.length}.
       </p>
       <button type="button" className="primary" onClick={onBackup}>
-        Pobierz kopię (JSON)
+        Pobierz kopię
       </button>
 
       <h3>Wczytaj kopię</h3>
       <p className="muted">Zastępuje wszystkie obecne dane danymi z pliku.</p>
       <input
         type="file"
-        accept="application/json,.json"
         onChange={async (e) => {
           const f = e.target.files?.[0]
           e.target.value = ''

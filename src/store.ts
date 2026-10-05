@@ -25,9 +25,17 @@ export function migrate(raw: unknown): AppState {
   }
 }
 
-export function useAppState(): { state: AppState | null; update: Updater; replace: (s: AppState) => void; error?: string } {
+export function useAppState(): {
+  state: AppState | null
+  update: Updater
+  replace: (s: AppState) => void
+  error?: string
+  /** Kiedy ostatnio zapisano dane w przeglądarce. */
+  savedAt?: Date
+} {
   const [state, setState] = useState<AppState | null>(null)
   const [error, setError] = useState<string>()
+  const [savedAt, setSavedAt] = useState<Date>()
   const timer = useRef<number | undefined>(undefined)
 
   useEffect(() => {
@@ -43,13 +51,18 @@ export function useAppState(): { state: AppState | null; update: Updater; replac
     if (!state) return
     window.clearTimeout(timer.current)
     timer.current = window.setTimeout(() => {
-      set(KEY, state).catch((e: Error) => setError(`Nie udało się zapisać danych: ${e.message}`))
+      set(KEY, state)
+        .then(() => {
+          setSavedAt(new Date())
+          setError(undefined)
+        })
+        .catch((e: Error) => setError(`Nie udało się zapisać danych: ${e.message}`))
     }, 250)
   }, [state])
 
   const update: Updater = useCallback((f) => setState((s) => (s ? f(s) : s)), [])
   const replace = useCallback((s: AppState) => setState(s), [])
-  return { state, update, replace, error }
+  return { state, update, replace, error, savedAt }
 }
 
 export function backupJson(state: AppState): string {
