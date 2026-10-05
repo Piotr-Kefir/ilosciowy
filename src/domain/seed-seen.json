@@ -1,0 +1,1022 @@
+[
+ {
+  "posKey": "1|cappuccino",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Cappuccino"
+ },
+ {
+  "posKey": "1|flat white",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Flat white"
+ },
+ {
+  "posKey": "1|latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Latte"
+ },
+ {
+  "posKey": "1|americano",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Americano"
+ },
+ {
+  "posKey": "1|szybki przelew duży 320ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Szybki przelew duży 320ml"
+ },
+ {
+  "posKey": "1|sezonowa latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Sezonowa latte"
+ },
+ {
+  "posKey": "1|szybki przelew 220ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Szybki przelew 220ml"
+ },
+ {
+  "posKey": "1|espresso doppio",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Espresso doppio"
+ },
+ {
+  "posKey": "1|macchiato 70ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Macchiato 70ml"
+ },
+ {
+  "posKey": "1|dirty chai latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "dirty chai latte"
+ },
+ {
+  "posKey": "1|alternatywa 220ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Alternatywa 220ml"
+ },
+ {
+  "posKey": "1|+ mleko roślinne",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ mleko roślinne"
+ },
+ {
+  "posKey": "1|mocca",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Mocca"
+ },
+ {
+  "posKey": "1|+ kubek na wynos",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ kubek na wynos"
+ },
+ {
+  "posKey": "1|cortado",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Cortado"
+ },
+ {
+  "posKey": "1|+ bezkofeinowa",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ bezkofeinowa"
+ },
+ {
+  "posKey": "1|+ mleko",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ mleko"
+ },
+ {
+  "posKey": "1|espresso tonic",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Espresso tonic"
+ },
+ {
+  "posKey": "1|alternatywa x2 (jedno parzenie)",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Alternatywa x2 (jedno parzenie)"
+ },
+ {
+  "posKey": "1|+ shot",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ shot"
+ },
+ {
+  "posKey": "1|+ lód",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ lód"
+ },
+ {
+  "posKey": "2|ciasto vegan",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Ciasto vegan"
+ },
+ {
+  "posKey": "2|+ opakowanie na wynos",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+opakowanie na wynos"
+ },
+ {
+  "posKey": "3|napar gruszka sosna",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Napar gruszka sosna"
+ },
+ {
+  "posKey": "3|herbata z dripa",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Herbata z dripa"
+ },
+ {
+  "posKey": "3|herbata zimowa z dodatkami 0,6l",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Herbata zimowa z dodatkami 0,6l"
+ },
+ {
+  "posKey": "3|napar rokitnik rozmaryn",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "napar rokitnik rozmaryn"
+ },
+ {
+  "posKey": "3|napar imbirowy",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "napar imbirowy"
+ },
+ {
+  "posKey": "3|matcha latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Matcha latte"
+ },
+ {
+  "posKey": "3|gorąca czekolada",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "gorąca czekolada"
+ },
+ {
+  "posKey": "3|chai latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "chai latte"
+ },
+ {
+  "posKey": "3|sezonowa matcha/hojicha latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Sezonowa matcha/hojicha latte"
+ },
+ {
+  "posKey": "3|kakao lindt",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kakao lindt"
+ },
+ {
+  "posKey": "3|miomio mate",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Miomio mate"
+ },
+ {
+  "posKey": "3|sok wyciskany 340ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Sok wyciskany 340ml"
+ },
+ {
+  "posKey": "3|zioła z dripa",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Zioła z dripa"
+ },
+ {
+  "posKey": "3|złote mleko",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "złote mleko"
+ },
+ {
+  "posKey": "3|sok tłoczony mały 200ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Sok tłoczony mały 200ml"
+ },
+ {
+  "posKey": "3|kombucha brothers&sisters",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kombucha brothers&sisters"
+ },
+ {
+  "posKey": "3|+ mleko roślinne",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+mleko roślinne"
+ },
+ {
+  "posKey": "3|hojicha latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Hojicha latte"
+ },
+ {
+  "posKey": "3|woda 0,3l",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Woda 0,3l"
+ },
+ {
+  "posKey": "3|+ kubek na wynos",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+kubek na wynos"
+ },
+ {
+  "posKey": "3|piwo bez alko 0,5 l",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Piwo bez alko 0,5 l"
+ },
+ {
+  "posKey": "3|kombucha karmnik",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kombucha karmnik"
+ },
+ {
+  "posKey": "3|mleko zwykłe 200 ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Mleko zwykłe 200 ml"
+ },
+ {
+  "posKey": "3|mleko roślinne 200 ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Mleko roślinne 200 ml"
+ },
+ {
+  "posKey": "3|cola the artisan",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Cola the artisan"
+ },
+ {
+  "posKey": "3|lawendowa matcha latte",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Lawendowa matcha latte"
+ },
+ {
+  "posKey": "3|fentimans tonik",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Fentimans tonik"
+ },
+ {
+  "posKey": "3|+ lód",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ lód"
+ },
+ {
+  "posKey": "4|hario filtry papierowe v60-02 100 sztuk",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Hario filtry papierowe v60-02 100 sztuk"
+ },
+ {
+  "posKey": "4|hario filtry papierowe v60-03 100 sztuk",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Hario filtry papierowe v60-03 100 sztuk"
+ },
+ {
+  "posKey": "4|aeropress filtry papierowe",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Aeropress filtry papierowe"
+ },
+ {
+  "posKey": "4|hario filtry papierowe v60-01 100 sztuk",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Hario filtry papierowe v60-01 100 sztuk"
+ },
+ {
+  "posKey": "4|moccamaster filtry papierowe nr 4",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Moccamaster filtry papierowe nr 4"
+ },
+ {
+  "posKey": "4|szklanka 1szt. pszczółka z uchem",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Szklanka 1szt. pszczółka z uchem"
+ },
+ {
+  "posKey": "4|chemex filtry białe duże",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Chemex filtry białe duże"
+ },
+ {
+  "posKey": "4|a torebka mała",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "A torebka mała"
+ },
+ {
+  "posKey": "6|+ syrop bigallet",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+syrop bigallet"
+ },
+ {
+  "posKey": "6|+ syrop bez cukru",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+syrop bez cukru"
+ },
+ {
+  "posKey": "6|+ lód",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+lód"
+ },
+ {
+  "posKey": "6|+ cytryna/pomarańcza/imbir",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+cytryna/pomarańcza/imbir"
+ },
+ {
+  "posKey": "7|piwo 0,5 litra",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Piwo 0,5 litra"
+ },
+ {
+  "posKey": "7|wino grzane z pomarańczą",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "wino grzane z pomarańczą"
+ },
+ {
+  "posKey": "7|wino musujące cava cava 125 ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Wino musujące cava cava 125 ml"
+ },
+ {
+  "posKey": "7|espresso aperol",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Espresso aperol"
+ },
+ {
+  "posKey": "7|wino czerwone 125 ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Wino czerwone 125 ml"
+ },
+ {
+  "posKey": "7|wino białe 125 ml",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Wino białe 125 ml"
+ },
+ {
+  "posKey": "7|+ kubek na wynos",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+ kubek na wynos"
+ },
+ {
+  "posKey": "10|kolumbia supremo 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kolumbia supremo 250g"
+ },
+ {
+  "posKey": "10|brazylia yellow bourbon 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Brazylia yellow bourbon 500g"
+ },
+ {
+  "posKey": "10|rwanda 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Rwanda 250g"
+ },
+ {
+  "posKey": "10|brazylia yellow bourbon 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Brazylia yellow bourbon 250g"
+ },
+ {
+  "posKey": "10|peru 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Peru 250g"
+ },
+ {
+  "posKey": "10|gwatemala shb 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Gwatemala shb 250g"
+ },
+ {
+  "posKey": "10|brazylia yellow bourbon 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Brazylia yellow bourbon 1000g"
+ },
+ {
+  "posKey": "10|burundi 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Burundi 250g"
+ },
+ {
+  "posKey": "10|papua ng 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Papua ng 250g"
+ },
+ {
+  "posKey": "10|kenia aa 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kenia aa 250g"
+ },
+ {
+  "posKey": "10|kolumbia supremo 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kolumbia supremo 1000g"
+ },
+ {
+  "posKey": "10|peru 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Peru 1000g"
+ },
+ {
+  "posKey": "10|meksyk shg 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Meksyk shg 250g"
+ },
+ {
+  "posKey": "10|kawa bezkofeinowa 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kawa bezkofeinowa 250g"
+ },
+ {
+  "posKey": "10|etiopia yirgacheffe 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Etiopia yirgacheffe 250g"
+ },
+ {
+  "posKey": "10|kolumbia supremo 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kolumbia supremo 500g"
+ },
+ {
+  "posKey": "10|kostaryka tarrazu 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kostaryka tarrazu 250g"
+ },
+ {
+  "posKey": "10|kenia aa 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kenia aa 1000g"
+ },
+ {
+  "posKey": "10|indie malabar/mysore 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Indie malabar/mysore 250g"
+ },
+ {
+  "posKey": "10|etiopia yirgacheffe 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Etiopia yirgacheffe 500g"
+ },
+ {
+  "posKey": "10|honduras shg ep 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Honduras shg ep 250g"
+ },
+ {
+  "posKey": "10|kawa bezkofeinowa 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kawa bezkofeinowa 1000g"
+ },
+ {
+  "posKey": "10|kongo kivu 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "kongo kivu 1000g"
+ },
+ {
+  "posKey": "10|burundi 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Burundi 500g"
+ },
+ {
+  "posKey": "10|rwanda 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Rwanda 1000g"
+ },
+ {
+  "posKey": "10|gwatemala shb 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Gwatemala shb 500g"
+ },
+ {
+  "posKey": "10|kostaryka tarrazu 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kostaryka tarrazu 1000g"
+ },
+ {
+  "posKey": "10|brazylia santos 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Brazylia santos 500g"
+ },
+ {
+  "posKey": "10|brazylia santos 1000g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Brazylia santos 1000g"
+ },
+ {
+  "posKey": "10|etiopia guji natural 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Etiopia guji natural 250g"
+ },
+ {
+  "posKey": "10|rwanda 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Rwanda 500g"
+ },
+ {
+  "posKey": "10|kawa bezkofeinowa 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Kawa bezkofeinowa 500g"
+ },
+ {
+  "posKey": "10|papua ng 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Papua ng 500g"
+ },
+ {
+  "posKey": "10|indie malabar/mysore 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Indie malabar/mysore 500g"
+ },
+ {
+  "posKey": "10|meksyk shg 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Meksyk shg 500g"
+ },
+ {
+  "posKey": "10|honduras shg ep 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Honduras shg ep 500g"
+ },
+ {
+  "posKey": "10|peru 500g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Peru 500g"
+ },
+ {
+  "posKey": "10|special blend 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "special blend 250g"
+ },
+ {
+  "posKey": "10|brazylia santos 250g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Brazylia santos 250g"
+ },
+ {
+  "posKey": "10|+ xmas opakowanie (1 szt.)",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "+xmas opakowanie (1 szt.)"
+ },
+ {
+  "posKey": "10|a torebka mała",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "A torebka mała"
+ },
+ {
+  "posKey": "12|earl grey z bławatkiem 50g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "Earl grey z bławatkiem 50g"
+ },
+ {
+  "posKey": "12|sencha jaśminowa 50g",
+  "pierwszyMiesiac": "2026-01",
+  "ostatniaNazwaOryginalna": "sencha jaśminowa 50g"
+ },
+ {
+  "posKey": "1|lawendowa latte",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Lawendowa latte"
+ },
+ {
+  "posKey": "3|ginger beer fentimas (0%)",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Ginger beer fentimas (0%)"
+ },
+ {
+  "posKey": "3|aperol 0%",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Aperol 0%"
+ },
+ {
+  "posKey": "3|matcha tonic",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Matcha tonic"
+ },
+ {
+  "posKey": "4|mleko oatly 1l.",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Mleko oatly 1l."
+ },
+ {
+  "posKey": "4|a torebka duża",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "a torebka duża"
+ },
+ {
+  "posKey": "7|aperol spritz",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Aperol spritz"
+ },
+ {
+  "posKey": "7|wino musujące cava rose 125 ml",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Wino musujące cava rose 125 ml"
+ },
+ {
+  "posKey": "7|hugo",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Hugo"
+ },
+ {
+  "posKey": "10|etiopia yirgacheffe 1000g",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Etiopia yirgacheffe 1000g"
+ },
+ {
+  "posKey": "10|kenia aa 500g",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Kenia aa 500g"
+ },
+ {
+  "posKey": "10|meksyk shg 1000g",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Meksyk shg 1000g"
+ },
+ {
+  "posKey": "10|honduras shg ep 1000g",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Honduras shg ep 1000g"
+ },
+ {
+  "posKey": "10|kostaryka tarrazu 500g",
+  "pierwszyMiesiac": "2026-02",
+  "ostatniaNazwaOryginalna": "Kostaryka tarrazu 500g"
+ },
+ {
+  "posKey": "1|afogatto lody z kawą",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Afogatto lody z kawą"
+ },
+ {
+  "posKey": "2|lody 1 porcja ok. 70g",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Lody 1 porcja ok. 70g"
+ },
+ {
+  "posKey": "2|owsiane ciastko",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "owsiane ciastko"
+ },
+ {
+  "posKey": "3|lemoniada dom.",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Lemoniada dom."
+ },
+ {
+  "posKey": "3|hugo 0%",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Hugo 0%"
+ },
+ {
+  "posKey": "4|chemex 6 cup",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "chemex 6 cup"
+ },
+ {
+  "posKey": "4|hario drip v60-03 clear",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Hario drip v60-03 clear"
+ },
+ {
+  "posKey": "4|hario drip v60-02 colour",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "hario drip v60-02 colour"
+ },
+ {
+  "posKey": "4|mleko sproud grochowe 1l.",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Mleko sproud grochowe 1l."
+ },
+ {
+  "posKey": "4|hario drip v60-01 clear",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Hario drip v60-01 clear"
+ },
+ {
+  "posKey": "5|wino musujące cava cava 6 x 125 ml",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Wino musujące cava cava 6 x 125 ml"
+ },
+ {
+  "posKey": "10|gwatemala shb 1000g",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Gwatemala shb 1000g"
+ },
+ {
+  "posKey": "10|burundi 1000g",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Burundi 1000g"
+ },
+ {
+  "posKey": "10|etiopia guji natural 500g",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "Etiopia guji natural 500g"
+ },
+ {
+  "posKey": "10|a torebka duża",
+  "pierwszyMiesiac": "2026-03",
+  "ostatniaNazwaOryginalna": "A torebka duża"
+ },
+ {
+  "posKey": "1|latte mrożone",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Latte mrożone"
+ },
+ {
+  "posKey": "1|cold brew",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Cold brew"
+ },
+ {
+  "posKey": "1|flat mrożony",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Flat mrożony"
+ },
+ {
+  "posKey": "2|czekolada liof me",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Czekolada liof me"
+ },
+ {
+  "posKey": "3|herbata mrożona",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Herbata mrożona"
+ },
+ {
+  "posKey": "3|matcha sezonowa ice (owoce)",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Matcha sezonowa ice (owoce)"
+ },
+ {
+  "posKey": "3|matcha latte ice",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Matcha latte ice"
+ },
+ {
+  "posKey": "4|aeropress",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Aeropress"
+ },
+ {
+  "posKey": "4|hario drip v60-02 clear",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Hario drip v60-02 clear"
+ },
+ {
+  "posKey": "4|gabi master a - filtry papierowe białe 100 sztuk",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "gabi master a - filtry papierowe białe 100 sztuk"
+ },
+ {
+  "posKey": "4|hario drip v60-01 colour",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Hario drip v60-01 colour"
+ },
+ {
+  "posKey": "4|filtry herbata 100 szt",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "filtry herbata 100 szt"
+ },
+ {
+  "posKey": "5|wino białe vespertino 6 x 125 ml",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Wino białe vespertino 6 x 125 ml"
+ },
+ {
+  "posKey": "6|oat",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Oat"
+ },
+ {
+  "posKey": "6|kokos",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Kokos"
+ },
+ {
+  "posKey": "6|grochowe",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Grochowe"
+ },
+ {
+  "posKey": "6|chemex",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Chemex"
+ },
+ {
+  "posKey": "6|ciepłe",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Ciepłe"
+ },
+ {
+  "posKey": "6|bzowy",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Bzowy"
+ },
+ {
+  "posKey": "6|drip",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Drip"
+ },
+ {
+  "posKey": "6|grejpfrut",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Grejpfrut"
+ },
+ {
+  "posKey": "6|bezlakto",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Bezlakto"
+ },
+ {
+  "posKey": "6|jagoda",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Jagoda"
+ },
+ {
+  "posKey": "6|aeropress",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Aeropress"
+ },
+ {
+  "posKey": "6|krowie",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Krowie"
+ },
+ {
+  "posKey": "6|mango",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Mango"
+ },
+ {
+  "posKey": "6|doppio",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Doppio"
+ },
+ {
+  "posKey": "6|og",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Og"
+ },
+ {
+  "posKey": "6|orzech laskowy",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Orzech laskowy"
+ },
+ {
+  "posKey": "6|pół shota (pojedynczy)",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Pół shota (pojedynczy)"
+ },
+ {
+  "posKey": "6|rabarbar",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Rabarbar"
+ },
+ {
+  "posKey": "6|roślinne",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Roślinne"
+ },
+ {
+  "posKey": "6|sf vanilla",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Sf vanilla"
+ },
+ {
+  "posKey": "6|yuzu",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Yuzu"
+ },
+ {
+  "posKey": "6|zimne",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Zimne"
+ },
+ {
+  "posKey": "8|+ opakowanie na wynos",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "+opakowanie na wynos"
+ },
+ {
+  "posKey": "10|papua ng 1000g",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Papua ng 1000g"
+ },
+ {
+  "posKey": "12|genmaicha 50g",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Genmaicha 50g"
+ },
+ {
+  "posKey": "12|rooibos 50g",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "Rooibos 50g"
+ },
+ {
+  "posKey": "12|ceylon op 50g",
+  "pierwszyMiesiac": "2026-04",
+  "ostatniaNazwaOryginalna": "ceylon op 50g"
+ },
+ {
+  "posKey": "1|americano na lodzie",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Americano na lodzie"
+ },
+ {
+  "posKey": "1|shakerato",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Shakerato"
+ },
+ {
+  "posKey": "3|espresso aperol 0%",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Espresso aperol 0%"
+ },
+ {
+  "posKey": "5|wino białe alfacina 6 x 125 ml",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Wino białe alfacina 6 x 125 ml"
+ },
+ {
+  "posKey": "6|frenchpress",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Frenchpress"
+ },
+ {
+  "posKey": "6|groch",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Groch"
+ },
+ {
+  "posKey": "6|karmel",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Karmel"
+ },
+ {
+  "posKey": "6|sf amaretto",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Sf amaretto"
+ },
+ {
+  "posKey": "6|wanilia",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Wanilia"
+ },
+ {
+  "posKey": "10|indie malabar/mysore 1000g",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Indie malabar/mysore 1000g"
+ },
+ {
+  "posKey": "12|pu-ehr mango papaja 50g",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Pu-ehr mango papaja 50g"
+ },
+ {
+  "posKey": "12|pai mu tan 40g",
+  "pierwszyMiesiac": "2026-05",
+  "ostatniaNazwaOryginalna": "Pai mu tan 40g"
+ },
+ {
+  "posKey": "4|clever dripper",
+  "pierwszyMiesiac": "2026-06",
+  "ostatniaNazwaOryginalna": "Clever dripper"
+ },
+ {
+  "posKey": "10|kuba serrano 250g",
+  "pierwszyMiesiac": "2026-06",
+  "ostatniaNazwaOryginalna": "Kuba serrano 250g"
+ },
+ {
+  "posKey": "1|mocca iced",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Mocca iced"
+ },
+ {
+  "posKey": "2|jagodzianka vegan",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Jagodzianka vegan"
+ },
+ {
+  "posKey": "2|cynamonka z jag.",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Cynamonka z jag."
+ },
+ {
+  "posKey": "6|ceylon",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Ceylon"
+ },
+ {
+  "posKey": "6|earl grej",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Earl grej"
+ },
+ {
+  "posKey": "6|sencha",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Sencha"
+ },
+ {
+  "posKey": "10|etiopia guji natural 1000g",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Etiopia guji natural 1000g"
+ },
+ {
+  "posKey": "12|koszyk jagód",
+  "pierwszyMiesiac": "2026-07",
+  "ostatniaNazwaOryginalna": "Koszyk jagód"
+ }
+]
