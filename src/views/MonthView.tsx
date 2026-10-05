@@ -248,7 +248,7 @@ function ProductRow({
   const e: ProductEntry = state.months[miesiac]?.wpisy[p.id] ?? {}
   const dec = j === 'kg' ? 3 : 2
   const etykiety = [...new Set(c.linie.map((l) => l.etykieta).filter(Boolean))]
-  const zalozenia = [...new Set(c.linie.map((l) => l.zalozenie).filter(Boolean))]
+  const zalozenia = [...new Set(c.linie.filter((l) => l.zalozenie).map((l) => `${l.nazwa}: ${l.zalozenie}`))]
 
   return (
     <tr>
@@ -256,7 +256,7 @@ function ProductRow({
         {p.nazwa} <span className="muted">[{unitLabel(j)}]</span>
         {zalozenia.length > 0 && (
           <div>
-            <Badge kind="assumption" title={zalozenia.join('\n')}>
+            <Badge kind="assumption" title={`Do potwierdzenia w zakładce „Receptury kawy”:\n${zalozenia.join('\n')}`}>
               założenie
             </Badge>
           </div>
