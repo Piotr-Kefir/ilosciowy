@@ -9,6 +9,7 @@ import { SyncEngine, type SyncStatus } from './sync'
 export type Phase =
   | { kind: 'ładowanie' }
   | { kind: 'logowanie' }
+  | { kind: 'nowe hasło' }
   | { kind: 'brak dostępu'; email: string }
   | { kind: 'błąd'; message: string }
   | { kind: 'gotowe'; email: string }
@@ -24,6 +25,8 @@ export interface CloudApp {
   info?: string
   dismissInfo: () => void
   signOut: () => Promise<void>
+  /** Po ustawieniu nowego hasła (link z maila). */
+  recovered: () => Promise<void>
 }
 
 /** Stan aplikacji zapisywany w chmurze (Supabase) z lokalną kopią na czas braku internetu. */
@@ -86,6 +89,12 @@ export function useCloudApp(): CloudApp {
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
       const email = session?.user.email
+      if (event === 'PASSWORD_RECOVERY') {
+        // Link „nie pamiętam hasła” z maila — najpierw nowe hasło, potem aplikacja.
+        teardown()
+        setPhase({ kind: 'nowe hasło' })
+        return
+      }
       if (email) {
         // Wywołanie poza callbackiem auth (zalecenie supabase-js — unika zakleszczeń).
         setTimeout(() => void init(email), 0)
@@ -127,6 +136,11 @@ export function useCloudApp(): CloudApp {
 
   const replace = useCallback((s: AppState) => update(() => s), [update])
 
+  const recovered = useCallback(async () => {
+    const { data } = await supabase.auth.getUser()
+    if (data.user?.email) await init(data.user.email)
+  }, [init])
+
   const signOut = useCallback(async () => {
     await engineRef.current?.flush()
     teardown()
@@ -134,5 +148,5 @@ export function useCloudApp(): CloudApp {
     await supabase.auth.signOut()
   }, [teardown])
 
-  return { phase, state, update, replace, status, info, dismissInfo: () => setInfo(undefined), signOut }
+  return { phase, state, update, replace, status, info, dismissInfo: () => setInfo(undefined), signOut, recovered }
 }

@@ -5,7 +5,7 @@ import { SUPABASE_KEY, SUPABASE_URL } from './config'
 import type { Cache, CacheRecord, Remote } from './sync'
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, storageKey: 'ilosciowy-auth', detectSessionInUrl: false },
+  auth: { persistSession: true, autoRefreshToken: true, storageKey: 'ilosciowy-auth', detectSessionInUrl: true },
 })
 
 const STATE_ID = 'kawiarnia'

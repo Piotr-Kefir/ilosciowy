@@ -52,7 +52,7 @@ function StatusBadge({ status }: { status?: SyncStatus }) {
 }
 
 export default function App() {
-  const { phase, state, update, replace, status, info, dismissInfo, signOut } = useCloudApp()
+  const { phase, state, update, replace, status, info, dismissInfo, signOut, recovered } = useCloudApp()
   const [tab, setTab] = useState<Tab>('miesiac')
   const [miesiac, setMiesiac] = useState<string | null>(null)
   useEffect(() => {
@@ -60,6 +60,7 @@ export default function App() {
   }, [])
 
   if (phase.kind === 'logowanie') return <LoginView />
+  if (phase.kind === 'nowe hasło') return <LoginView recovery onRecovered={() => void recovered()} />
   if (phase.kind === 'brak dostępu')
     return (
       <div className="login">
