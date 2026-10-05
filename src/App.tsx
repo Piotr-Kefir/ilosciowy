@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { nextMonth, prevMonth } from './domain/calc'
 import type { AppState } from './domain/types'
-import { fmtDateTime, monthLabel } from './format'
-import { backupJson, downloadFile, requestPersistence, useAppState } from './store'
+import { monthLabel } from './format'
+import { useCloudApp } from './cloud/useCloudApp'
+import type { SyncStatus } from './cloud/sync'
+import { backupJson, downloadFile, requestPersistence } from './store'
+import { LoginView } from './views/LoginView'
 import { BackupView } from './views/BackupView'
 import { InvoicesPanel } from './views/InvoicesPanel'
 import { MonthView } from './views/MonthView'
@@ -18,7 +21,7 @@ const TABS: [Tab, string][] = [
   ['pozycje', 'Pozycje z kasy'],
   ['receptury', 'Receptury kawy'],
   ['produkty', 'Produkty'],
-  ['kopia', 'Kopia zapasowa'],
+  ['kopia', 'Kopia i historia'],
 ]
 
 function initialMonth(s: AppState): string {
@@ -29,28 +32,56 @@ function initialMonth(s: AppState): string {
   return withReport.at(-1) ?? '2026-08'
 }
 
+function StatusBadge({ status }: { status?: SyncStatus }) {
+  if (!status) return null
+  const time = (d: Date) => d.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
+  if (status.kind === 'zapisane')
+    return (
+      <span className="saved" title="Każda zmiana zapisuje się sama w chmurze">
+        ✓ Zapisane w chmurze {time(status.at)}
+      </span>
+    )
+  if (status.kind === 'zapisywanie') return <span className="muted">Zapisywanie…</span>
+  if (status.kind === 'offline')
+    return (
+      <span className="warn-text" title="Zmiany są na tym urządzeniu i wyślą się same">
+        Brak internetu — zapisze się, gdy wróci
+      </span>
+    )
+  return <span className="text-red">{status.message}</span>
+}
+
 export default function App() {
-  const { state, update, replace, error, savedAt } = useAppState()
+  const { phase, state, update, replace, status, info, dismissInfo, signOut } = useCloudApp()
   const [tab, setTab] = useState<Tab>('miesiac')
   const [miesiac, setMiesiac] = useState<string | null>(null)
   useEffect(() => {
     void requestPersistence()
   }, [])
 
-  if (!state) return <p className="loading">Wczytywanie…</p>
+  if (phase.kind === 'logowanie') return <LoginView />
+  if (phase.kind === 'brak dostępu')
+    return (
+      <div className="login">
+        <h1>Ilościowy</h1>
+        <p>
+          Adres <strong>{phase.email}</strong> nie ma dostępu do danych kawiarni.
+        </p>
+        <button type="button" onClick={() => void signOut()}>
+          Wyloguj
+        </button>
+      </div>
+    )
+  if (phase.kind === 'błąd') return <p className="loading text-red">{phase.message}</p>
+  if (!state || phase.kind !== 'gotowe') return <p className="loading">Wczytywanie…</p>
   const m = miesiac ?? initialMonth(state)
 
   function backup() {
     if (!state) return
     const now = new Date().toISOString()
-    const s = { ...state, settings: { ...state.settings, ostatniaKopia: now } }
     // Własna końcówka pliku, żeby system nie otwierał kopii w innym programie (np. jako JSON).
-    downloadFile(`ilosciowy_kopia_${now.slice(0, 10)}.ilosciowy`, backupJson(s), 'application/octet-stream')
-    update((x) => ({ ...x, settings: { ...x.settings, ostatniaKopia: now } }))
+    downloadFile(`ilosciowy_kopia_${now.slice(0, 10)}.ilosciowy`, backupJson(state), 'application/octet-stream')
   }
-
-  const lastBackup = state.settings.ostatniaKopia
-  const needsBackup = Object.values(state.months).some((x) => x.zamknietyAt && (!lastBackup || x.zamknietyAt > lastBackup))
 
   return (
     <div className="app">
@@ -67,24 +98,15 @@ export default function App() {
           <strong className="month-name">{monthLabel(m)}</strong>
         </div>
         <div className="backup-info">
-          {savedAt && (
-            <span className="saved" title="Każda zmiana zapisuje się sama w tej przeglądarce">
-              ✓ Zapisane {savedAt.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}
-            </span>
-          )}{' '}
-          Ostatnia kopia: <span className={lastBackup ? '' : 'text-red'}>{fmtDateTime(lastBackup)}</span>{' '}
-          <button type="button" onClick={backup}>
-            Pobierz kopię
-          </button>
+          <StatusBadge status={status} />
         </div>
       </header>
 
-      {error && <div className="alert alert-red">{error}</div>}
-      {needsBackup && (
-        <div className="alert alert-yellow banner">
-          Miesiąc został zamknięty po ostatniej kopii.{' '}
-          <button type="button" className="primary" onClick={backup}>
-            Pobierz kopię teraz
+      {info && (
+        <div className="alert alert-yellow">
+          {info}{' '}
+          <button type="button" onClick={dismissInfo}>
+            OK
           </button>
         </div>
       )}
@@ -99,13 +121,13 @@ export default function App() {
 
       <main>
         {tab === 'miesiac' && (
-          <MonthView state={state} update={update} miesiac={m} setMiesiac={setMiesiac} onBackup={backup} goToPositions={() => setTab('pozycje')} />
+          <MonthView state={state} update={update} miesiac={m} setMiesiac={setMiesiac} goToPositions={() => setTab('pozycje')} />
         )}
         {tab === 'faktury' && <InvoicesPanel state={state} update={update} miesiac={m} />}
         {tab === 'pozycje' && <PositionsView state={state} update={update} miesiac={m} />}
         {tab === 'receptury' && <RecipesView state={state} update={update} />}
         {tab === 'produkty' && <ProductsView state={state} update={update} />}
-        {tab === 'kopia' && <BackupView state={state} replace={replace} onBackup={backup} />}
+        {tab === 'kopia' && <BackupView state={state} replace={replace} onBackup={backup} email={phase.email} onSignOut={signOut} />}
       </main>
     </div>
   )

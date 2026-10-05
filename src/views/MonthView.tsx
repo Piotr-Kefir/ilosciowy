@@ -16,11 +16,10 @@ interface Props {
   update: Updater
   miesiac: string
   setMiesiac: (m: string) => void
-  onBackup: () => void
   goToPositions: () => void
 }
 
-export function MonthView({ state, update, miesiac, setMiesiac, onBackup, goToPositions }: Props) {
+export function MonthView({ state, update, miesiac, setMiesiac, goToPositions }: Props) {
   const [invoiceFor, setInvoiceFor] = useState<string | null>(null)
   const month = state.months[miesiac]
   const calc = computeMonth(state, miesiac)
@@ -134,11 +133,8 @@ export function MonthView({ state, update, miesiac, setMiesiac, onBackup, goToPo
           <button
             type="button"
             className="primary"
-            onClick={() => {
-              update((s) => setMonthClosed(s, miesiac, true))
-              onBackup()
-            }}
-            title="Oznacza miesiąc jako rozliczony (dalej można go poprawiać) i proponuje pobranie kopii"
+            onClick={() => update((s) => setMonthClosed(s, miesiac, true))}
+            title="Oznacza miesiąc jako rozliczony (dalej można go poprawiać)"
           >
             Zamknij miesiąc
           </button>

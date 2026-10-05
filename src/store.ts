@@ -1,11 +1,7 @@
-import { get, set } from 'idb-keyval'
-import { useCallback, useEffect, useRef, useState } from 'react'
 import { defaultState } from './domain/defaults'
 import type { AppState } from './domain/types'
 
-const KEY = 'ilosciowy-stan'
-
-export type Updater = (f: (s: AppState) => AppState) => void
+export type { Updater } from './cloud/useCloudApp'
 
 /** Uzupełnia stan wczytany z bazy lub kopii o pola dodane w nowszych wersjach. */
 export function migrate(raw: unknown): AppState {
@@ -23,46 +19,6 @@ export function migrate(raw: unknown): AppState {
     mappings: s.mappings ?? d.mappings,
     version: 1,
   }
-}
-
-export function useAppState(): {
-  state: AppState | null
-  update: Updater
-  replace: (s: AppState) => void
-  error?: string
-  /** Kiedy ostatnio zapisano dane w przeglądarce. */
-  savedAt?: Date
-} {
-  const [state, setState] = useState<AppState | null>(null)
-  const [error, setError] = useState<string>()
-  const [savedAt, setSavedAt] = useState<Date>()
-  const timer = useRef<number | undefined>(undefined)
-
-  useEffect(() => {
-    get(KEY)
-      .then((raw) => setState(raw ? migrate(raw) : defaultState()))
-      .catch((e: Error) => {
-        setError(`Nie udało się otworzyć bazy w przeglądarce: ${e.message}`)
-        setState(defaultState())
-      })
-  }, [])
-
-  useEffect(() => {
-    if (!state) return
-    window.clearTimeout(timer.current)
-    timer.current = window.setTimeout(() => {
-      set(KEY, state)
-        .then(() => {
-          setSavedAt(new Date())
-          setError(undefined)
-        })
-        .catch((e: Error) => setError(`Nie udało się zapisać danych: ${e.message}`))
-    }, 250)
-  }, [state])
-
-  const update: Updater = useCallback((f) => setState((s) => (s ? f(s) : s)), [])
-  const replace = useCallback((s: AppState) => setState(s), [])
-  return { state, update, replace, error, savedAt }
 }
 
 export function backupJson(state: AppState): string {

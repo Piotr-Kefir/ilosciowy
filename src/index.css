@@ -596,3 +596,24 @@ label.check {
     white-space: normal;
   }
 }
+
+.warn-text {
+  color: var(--yellow);
+}
+.login {
+  max-width: 360px;
+  margin: 12vh auto 0;
+  padding: 0 16px;
+}
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.login input {
+  font-size: 1.1rem;
+  padding: 8px 10px;
+}
+.history-list td {
+  vertical-align: middle;
+}
