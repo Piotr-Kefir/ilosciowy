@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { nextMonth, prevMonth } from './domain/calc'
 import type { AppState } from './domain/types'
 import { fmtDateTime, monthLabel } from './format'
-import { backupJson, downloadFile, useAppState } from './store'
+import { backupJson, downloadFile, requestPersistence, useAppState } from './store'
 import { BackupView } from './views/BackupView'
 import { InvoicesPanel } from './views/InvoicesPanel'
 import { MonthView } from './views/MonthView'
@@ -33,6 +33,9 @@ export default function App() {
   const { state, update, replace, error } = useAppState()
   const [tab, setTab] = useState<Tab>('miesiac')
   const [miesiac, setMiesiac] = useState<string | null>(null)
+  useEffect(() => {
+    void requestPersistence()
+  }, [])
 
   if (!state) return <p className="loading">Wczytywanie…</p>
   const m = miesiac ?? initialMonth(state)

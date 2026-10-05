@@ -78,3 +78,26 @@ export function downloadFile(name: string, content: BlobPart, type: string) {
   a.remove()
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
+
+export type Persistence = 'trwałe' | 'nietrwałe' | 'nieznane'
+
+/**
+ * Prosi przeglądarkę, żeby nie kasowała danych strony przy czyszczeniu miejsca
+ * (Safari kasuje dane nieodwiedzanych stron po ~7 dniach, chyba że są na ekranie głównym).
+ */
+export async function requestPersistence(): Promise<Persistence> {
+  try {
+    if (!navigator.storage?.persist) return 'nieznane'
+    if (await navigator.storage.persisted()) return 'trwałe'
+    return (await navigator.storage.persist()) ? 'trwałe' : 'nietrwałe'
+  } catch {
+    return 'nieznane'
+  }
+}
+
+export function isInstalledApp(): boolean {
+  return (
+    window.matchMedia?.('(display-mode: standalone)').matches ||
+    (navigator as Navigator & { standalone?: boolean }).standalone === true
+  )
+}

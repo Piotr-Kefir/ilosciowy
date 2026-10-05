@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { defaultState } from '../domain/defaults'
 import type { AppState } from '../domain/types'
 import { fmtDateTime, monthLabel } from '../format'
-import { parseBackup } from '../store'
+import { isInstalledApp, parseBackup, requestPersistence, type Persistence } from '../store'
 
 export function BackupView({ state, replace, onBackup }: { state: AppState; replace: (s: AppState) => void; onBackup: () => void }) {
   const [msg, setMsg] = useState<string>()
+  const [persist, setPersist] = useState<Persistence>('nieznane')
+  useEffect(() => {
+    void requestPersistence().then(setPersist)
+  }, [])
+  const installed = isInstalledApp()
   const months = Object.keys(state.months).sort()
 
   return (
@@ -15,6 +20,24 @@ export function BackupView({ state, replace, onBackup }: { state: AppState; repl
         Dane są zapisane <strong>tylko w tej przeglądarce na tym urządzeniu</strong>. Kopia (plik JSON) to jedyny sposób, żeby je
         przenieść na inne urządzenie albo odzyskać po wyczyszczeniu przeglądarki. Pobieraj ją po każdym zamknięciu miesiąca.
       </p>
+      <p>
+        Przechowywanie w przeglądarce:{' '}
+        <strong className={persist === 'trwałe' ? 'ok-line' : 'text-red'}>
+          {persist === 'trwałe' ? 'trwałe — przeglądarka nie usunie danych sama' : 'nietrwałe — przeglądarka może usunąć dane'}
+        </strong>
+        {installed && <span className="muted"> · otwarte jako aplikacja z ekranu głównego</span>}
+      </p>
+      {!installed && (
+        <div className="alert alert-yellow">
+          <strong>Na telefonie dodaj tę stronę do ekranu głównego.</strong> Safari na iPhonie usuwa dane stron nieotwieranych przez
+          ok. 7 dni — strona dodana do ekranu głównego jest chroniona.
+          <ul>
+            <li>iPhone (Safari): przycisk „Udostępnij” → „Do ekranu początkowego”.</li>
+            <li>Android (Chrome): menu ⋮ → „Dodaj do ekranu głównego” / „Zainstaluj aplikację”.</li>
+          </ul>
+          Potem otwieraj aplikację zawsze z tej ikony (dane z ikony i ze zwykłej karty przeglądarki mogą być osobne).
+        </div>
+      )}
       <p>
         Ostatnia kopia: <strong>{fmtDateTime(state.settings.ostatniaKopia)}</strong>
       </p>
