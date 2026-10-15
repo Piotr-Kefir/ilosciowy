@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NumInput } from '../components/NumInput'
 import { deleteInvoice, newId, setEntryField, upsertInvoice } from '../domain/actions'
-import { invoicesInMonth, lineQty } from '../domain/calc'
+import { invoiceScope, invoiceTargets, invoicesInMonth, isGroupId, lineQty } from '../domain/calc'
 import type { AppState, Invoice, InvoiceLine } from '../domain/types'
 import { fmtDate, fmtQty, fmtZl, monthLabel, unitLabel } from '../format'
 import type { Updater } from '../store'
@@ -18,10 +18,11 @@ interface Props {
 export function InvoicesPanel({ state, update, miesiac, productId, onClose }: Props) {
   const [editing, setEditing] = useState<Invoice | null>(null)
   const all = invoicesInMonth(state, miesiac).sort((a, b) => a.data.localeCompare(b.data))
-  const list = productId ? all.filter((i) => i.linie.some((l) => l.productId === productId)) : all
-  const product = state.products.find((p) => p.id === productId)
+  const scope = productId ? invoiceScope(state, productId) : null
+  const list = scope ? all.filter((i) => i.linie.some((l) => scope.includes(l.productId))) : all
+  const product = invoiceTargets(state).find((p) => p.id === productId)
   const entry = productId ? state.months[miesiac]?.wpisy[productId] : undefined
-  const pname = (id: string) => state.products.find((p) => p.id === id)?.nazwa ?? id
+  const pname = (id: string) => invoiceTargets(state).find((p) => p.id === id)?.nazwa ?? id
 
   function startNew() {
     const day = `${miesiac}-01`
@@ -31,7 +32,7 @@ export function InvoicesPanel({ state, update, miesiac, productId, onClose }: Pr
       bezFaktury: false,
       data: day,
       miesiacRozliczenia: miesiac,
-      linie: [{ id: newId(), productId: productId ?? state.products[0].id, ilosc: { expr: '', value: 0 }, kwotaBrutto: { expr: '', value: 0 } }],
+      linie: [{ id: newId(), productId: productId ?? invoiceTargets(state)[0].id, ilosc: { expr: '', value: 0 }, kwotaBrutto: { expr: '', value: 0 } }],
     })
   }
 
@@ -48,6 +49,12 @@ export function InvoicesPanel({ state, update, miesiac, productId, onClose }: Pr
           </button>
         )}
       </div>
+      {productId && isGroupId(productId) && (
+        <p className="muted">
+          Faktury na całą grupę (gdy nie wiadomo, których sztuk dotyczą) i na poszczególne produkty z tej grupy. Nowa linia domyślnie
+          idzie na całą grupę.
+        </p>
+      )}
       {product && !product.wypal && (
         <label className="check">
           <input
@@ -83,9 +90,9 @@ export function InvoicesPanel({ state, update, miesiac, productId, onClose }: Pr
             <tbody>
               {list.flatMap((inv) =>
                 inv.linie
-                  .filter((l) => !productId || l.productId === productId)
+                  .filter((l) => !scope || scope.includes(l.productId))
                   .map((l, i) => {
-                    const p = state.products.find((x) => x.id === l.productId)
+                    const p = invoiceTargets(state).find((x) => x.id === l.productId)
                     return (
                       <tr key={l.id}>
                         <td>{i === 0 ? (inv.bezFaktury ? <em>bez faktury{inv.numer ? `: ${inv.numer}` : ''}</em> : inv.numer) : ''}</td>
@@ -169,6 +176,15 @@ function InvoiceForm({
     if (!inv.data) return setErr('Wybierz datę.')
     const linie = inv.linie.filter((l) => l.ilosc.expr.trim())
     if (!linie.length) return setErr('Dodaj co najmniej jedną linię z ilością.')
+    // Częsta pomyłka: kwota wpisana w polu „Kaucja” — wtedy koszt wychodzi 0 albo ujemny.
+    const podejrzane = linie.filter((l) => (l.kaucja?.value ?? 0) > 0 && (l.kaucja?.value ?? 0) >= l.kwotaBrutto.value)
+    if (
+      podejrzane.length &&
+      !window.confirm(
+        'Kaucja jest równa albo większa niż kwota brutto — czy kwota nie trafiła do pola „Kaucja”?\n\nOK = zapisz mimo to, Anuluj = popraw.',
+      )
+    )
+      return
     onSave({ ...inv, linie })
   }
 
@@ -219,12 +235,12 @@ function InvoiceForm({
         </label>
       </div>
       <datalist id="produkty-lista">
-        {state.products.map((p) => (
+        {invoiceTargets(state).map((p) => (
           <option key={p.id} value={p.nazwa} />
         ))}
       </datalist>
       {inv.linie.map((l) => {
-        const p = state.products.find((x) => x.id === l.productId)
+        const p = invoiceTargets(state).find((x) => x.id === l.productId)
         return (
           <div className="form-row line" key={l.id}>
             <label>
@@ -284,7 +300,7 @@ function InvoiceForm({
         onClick={() =>
           setInv({
             ...inv,
-            linie: [...inv.linie, { id: newId(), productId: state.products[0].id, ilosc: { expr: '', value: 0 }, kwotaBrutto: { expr: '', value: 0 } }],
+            linie: [...inv.linie, { id: newId(), productId: invoiceTargets(state)[0].id, ilosc: { expr: '', value: 0 }, kwotaBrutto: { expr: '', value: 0 } }],
           })
         }
       >
@@ -310,7 +326,7 @@ function InvoiceForm({
 
 /** Wybór produktu z autouzupełnianiem (wpisz kilka liter nazwy). */
 function ProductPicker({ state, value, onChange }: { state: AppState; value: string; onChange: (id: string) => void }) {
-  const current = state.products.find((p) => p.id === value)
+  const current = invoiceTargets(state).find((p) => p.id === value)
   const [text, setText] = useState(current?.nazwa ?? '')
   return (
     <input
@@ -318,10 +334,10 @@ function ProductPicker({ state, value, onChange }: { state: AppState; value: str
       value={text}
       onChange={(e) => {
         setText(e.target.value)
-        const p = state.products.find((x) => x.nazwa.toLowerCase() === e.target.value.toLowerCase())
+        const p = invoiceTargets(state).find((x) => x.nazwa.toLowerCase() === e.target.value.toLowerCase())
         if (p) onChange(p.id)
       }}
-      onBlur={() => setText(state.products.find((p) => p.id === value)?.nazwa ?? '')}
+      onBlur={() => setText(invoiceTargets(state).find((p) => p.id === value)?.nazwa ?? '')}
     />
   )
 }

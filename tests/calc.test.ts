@@ -254,3 +254,60 @@ describe('eksport xlsx', () => {
     expect(rows.some((r) => r.Produkt === 'Drożdżówki razem')).toBe(true)
   })
 })
+
+describe('Drożdżówki razem — wpisy dla całej grupy', () => {
+  const G = 'grupa:Drożdżówki'
+  it('straty i pracownicy grupy dodają się do produktów; stan końcowy grupy zastępuje sumę; faktura na grupę liczy się w zakupach', () => {
+    let s = importReport(defaultState(), sierpien)
+    for (const id of ['cynamonka', 'jagodzianka', 'malinianka']) {
+      s = setEntryField(s, '2026-08', id, 'start', nf('10'))
+      s = setEntryField(s, '2026-08', id, 'straty', nf('1'))
+    }
+    s = setEntryField(s, '2026-08', G, 'straty', nf('2+1'))
+    s = setEntryField(s, '2026-08', G, 'pracownicyIlosc', nf('4'))
+    s = setEntryField(s, '2026-08', G, 'pracownicyKwota', nf('40'))
+    s = upsertInvoice(s, {
+      id: 'd1',
+      numer: 'bez faktury',
+      bezFaktury: true,
+      data: '2026-08-10',
+      miesiacRozliczenia: '2026-08',
+      linie: [{ id: 'd1', productId: G, ilosc: nf('200'), kwotaBrutto: nf('1000') }],
+    })
+    s = setEntryField(s, '2026-08', G, 'koniec', nf('20'))
+
+    const mc = computeMonth(s, '2026-08')
+    const g = mc.grupy[0]
+    const sprzedaz = 36 + 109 + 17
+    expect(v(g.start)).toBe(30)
+    expect(v(g.zakupy)).toBe(200)
+    expect(g.straty).toBe(3 + 3)
+    expect(g.pracIlosc).toBe(4)
+    expect(v(g.koniec)).toBe(20)
+    expect(v(g.roznica)).toBe(20 - (30 + 200 - sprzedaz - 4 - 6))
+    expect(v(g.wydane)).toBe(1000)
+    expect(v(g.cena)).toBe(5)
+    // produkty liczą się po staremu (bez wpisów grupy)
+    const cyn = mc.produkty.find((p) => p.product.id === 'cynamonka')!
+    expect(cyn.straty).toBe(1)
+    expect(cyn.zakupy.ok).toBe(false)
+    // sumy miesiąca obejmują fakturę i wpłatę grupy
+    expect(mc.sumy.wydane).toBe(1000)
+    // stan końcowy grupy przechodzi na start grupy w kolejnym miesiącu
+    expect(v(computeMonth(s, '2026-09').grupy[0].start)).toBe(20)
+  })
+
+  it('bez wpisów grupy wiersz razem = suma produktów (jak dotąd)', () => {
+    let s = importReport(defaultState(), sierpien)
+    for (const id of ['cynamonka', 'jagodzianka', 'malinianka']) {
+      s = setEntryField(s, '2026-08', id, 'start', nf('10'))
+      s = setEntryField(s, '2026-08', id, 'koniec', nf('5'))
+      s = setEntryField(s, '2026-08', id, 'brakDostaw', true)
+    }
+    const g = computeMonth(s, '2026-08').grupy[0]
+    expect(v(g.start)).toBe(30)
+    expect(v(g.koniec)).toBe(15)
+    expect(v(g.zakupy)).toBe(0)
+    expect(v(g.roznica)).toBe(15 - (30 - (36 + 109 + 17)))
+  })
+})

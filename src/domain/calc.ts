@@ -237,24 +237,42 @@ export function computeProduct(state: AppState, miesiac: string, product: Produc
   }
 }
 
-/** Wiersz sumy dla grupy widoku (np. „Drożdżówki razem”). */
+/** Identyfikator wiersza grupy (np. „Drożdżówki razem”) — wpisy i faktury mogą dotyczyć całej grupy. */
+export function groupId(nazwa: string): string {
+  return `grupa:${nazwa}`
+}
+
+export function isGroupId(id: string): boolean {
+  return id.startsWith('grupa:')
+}
+
+/** Wiersz grupy widoku (np. „Drożdżówki razem”): suma produktów + wpisy dla całej grupy. */
 export interface GroupCalc {
+  id: string
   nazwa: string
   productIds: string[]
   sprzedaz: Val
   sprzedazZl: Val
   start: Val
+  startZrodlo: 'ręcznie' | 'poprzedni miesiąc' | 'suma produktów' | 'brak'
   zakupy: Val
   wydane: Val
+  /** Łącznie: produkty + wpisy dla grupy. */
   pracIlosc: number
   pracKwota: number
   straty: number
   koniec: Val
+  /** Stan końcowy wpisany dla grupy (a nie suma produktów). */
+  koniecZGrupy: boolean
+  oczekiwany: Val
   roznica: Val
   roznicaPct: Val
+  cena: Val
   roznicaZl: Val
   wplynelo: Val
+  zuzycie: Val
   marza: Val
+  marzaPct: Val
   alarm: Alarm
 }
 
@@ -262,28 +280,97 @@ function sumVals(vals: Val[]): Val {
   return lift(vals, (...v) => v.reduce((a, b) => a + b, 0))
 }
 
-export function computeGroup(state: AppState, nazwa: string, items: ProductCalc[]): GroupCalc {
-  const pracIlosc = items.reduce((s, c) => s + c.pracIlosc, 0)
+/** Faktury przypisane do grupy albo do jej produktów: ilość, koszt, cena. */
+function groupPurchases(state: AppState, miesiac: string, ids: string[]) {
+  const lines = invoicesInMonth(state, miesiac).flatMap((i) => i.linie.filter((l) => ids.includes(l.productId)))
+  let qty = 0
+  let zl = 0
+  for (const l of lines) {
+    const q = lineQty(state, l)
+    qty += q
+    zl += l.kwotaBrutto.value - num(l.kaucja)
+  }
+  return { lines, qty, zl, cena: qty > 0 ? zl / qty : null }
+}
+
+export function computeGroup(state: AppState, miesiac: string, nazwa: string, items: ProductCalc[]): GroupCalc {
+  const id = groupId(nazwa)
+  const ids = [id, ...items.map((c) => c.product.id)]
+  const ge: ProductEntry = state.months[miesiac]?.wpisy[id] ?? {}
+
   const sprzedaz = sumVals(items.map((c) => c.sprzedaz))
-  const roznica = sumVals(items.map((c) => c.roznica))
+  const sprzedazZl = sumVals(items.map((c) => c.sprzedazZl))
+  const pracIlosc = items.reduce((s, c) => s + c.pracIlosc, 0) + num(ge.pracownicyIlosc)
+  const pracKwota = items.reduce((s, c) => s + c.pracKwota, 0) + num(ge.pracownicyKwota)
+  const straty = items.reduce((s, c) => s + c.straty, 0) + num(ge.straty)
+
+  let start: Val
+  let startZrodlo: GroupCalc['startZrodlo']
+  const prevKoniec = state.months[prevMonth(miesiac)]?.wpisy[id]?.koniec
+  if (ge.start) {
+    start = ok(ge.start.value)
+    startZrodlo = 'ręcznie'
+  } else if (prevKoniec) {
+    start = ok(prevKoniec.value)
+    startZrodlo = 'poprzedni miesiąc'
+  } else {
+    start = sumVals(items.map((c) => c.start))
+    startZrodlo = start.ok ? 'suma produktów' : 'brak'
+    if (!start.ok) start = missing(BRAK.start)
+  }
+
+  const koniec: Val = ge.koniec ? ok(ge.koniec.value) : sumVals(items.map((c) => c.koniec))
+
+  const zak = groupPurchases(state, miesiac, ids)
+  const allNoDelivery = items.every((c) => state.months[miesiac]?.wpisy[c.product.id]?.brakDostaw)
+  const zakupy: Val = zak.lines.length || ge.brakDostaw || allNoDelivery ? ok(zak.qty) : missing(BRAK.faktury)
+
+  const oczekiwany = lift([start, zakupy, sprzedaz], (s, z, sp) => s + z - sp - pracIlosc - straty)
+  const roznica = lift([koniec, oczekiwany], (k, o) => k - o)
   const roznicaPct = lift([roznica, sprzedaz], (r, sp) => (sp + pracIlosc === 0 ? null : r / (sp + pracIlosc)))
+
+  let cena: Val = zak.cena !== null ? ok(zak.cena) : missing(BRAK.cena)
+  if (!cena.ok) {
+    const earlier = [...new Set(state.invoices.map((i) => i.miesiacRozliczenia))].filter((m) => m < miesiac).sort().reverse()
+    for (const m of earlier) {
+      const p = groupPurchases(state, m, ids).cena
+      if (p !== null) {
+        cena = ok(p)
+        break
+      }
+    }
+  }
+  const roznicaZl = lift([roznica, cena], (r, c) => r * c)
+  const wplynelo = lift([sprzedazZl], (s) => s + pracKwota)
+  const zuzycie = lift([start, zakupy, koniec], (s, z, k) => s + z - k)
+  const kosztZuzycia = lift([zuzycie, cena], (z, c) => z * c)
+  const marza = lift([wplynelo, kosztZuzycia], (w, k) => w - k)
+  const marzaPct = lift([marza, wplynelo], (m, w) => (w === 0 ? null : m / w))
+
   return {
+    id,
     nazwa,
     productIds: items.map((c) => c.product.id),
     sprzedaz,
-    sprzedazZl: sumVals(items.map((c) => c.sprzedazZl)),
-    start: sumVals(items.map((c) => c.start)),
-    zakupy: sumVals(items.map((c) => c.zakupy)),
-    wydane: sumVals(items.map((c) => c.wydane)),
+    sprzedazZl,
+    start,
+    startZrodlo,
+    zakupy,
+    wydane: ok(zak.zl),
     pracIlosc,
-    pracKwota: items.reduce((s, c) => s + c.pracKwota, 0),
-    straty: items.reduce((s, c) => s + c.straty, 0),
-    koniec: sumVals(items.map((c) => c.koniec)),
+    pracKwota,
+    straty,
+    koniec,
+    koniecZGrupy: !!ge.koniec,
+    oczekiwany,
     roznica,
     roznicaPct,
-    roznicaZl: sumVals(items.map((c) => c.roznicaZl)),
-    wplynelo: sumVals(items.map((c) => c.wplynelo)),
-    marza: sumVals(items.map((c) => c.marza)),
+    cena,
+    roznicaZl,
+    wplynelo,
+    zuzycie,
+    marza,
+    marzaPct,
     alarm: alarmOf(state, roznicaPct),
   }
 }
@@ -361,6 +448,7 @@ export function computeMonth(state: AppState, miesiac: string): MonthCalc {
   const grupy = groupNames.map((g) =>
     computeGroup(
       state,
+      miesiac,
       g,
       produkty.filter((c) => c.product.grupaWidoku === g),
     ),
@@ -372,8 +460,32 @@ export function computeMonth(state: AppState, miesiac: string): MonthCalc {
     grupy,
     kawa: kawaCalc ? computeCoffee(state, miesiac, kawaCalc) : undefined,
     sumy: {
-      wydane: produkty.reduce((s, c) => s + (c.wydane.ok ? c.wydane.v : 0), 0),
-      wplynelo: sumVals(produkty.map((c) => c.wplynelo)),
+      // Produkty + to, co wpisano dla całej grupy (faktury i wpłaty pracowników „Drożdżówki razem”).
+      wydane:
+        produkty.reduce((s, c) => s + (c.wydane.ok ? c.wydane.v : 0), 0) +
+        invoicesInMonth(state, miesiac)
+          .flatMap((i) => i.linie.filter((l) => isGroupId(l.productId)))
+          .reduce((s, l) => s + l.kwotaBrutto.value - num(l.kaucja), 0),
+      wplynelo: lift([sumVals(produkty.map((c) => c.wplynelo))], (w) =>
+        groupNames.reduce((s, g) => s + num(state.months[miesiac]?.wpisy[groupId(g)]?.pracownicyKwota), w),
+      ),
     },
   }
+}
+
+/** Na co można wystawić linię faktury: aktywne produkty + całe grupy (np. „Drożdżówki (razem)”). */
+export function invoiceTargets(state: AppState): Product[] {
+  const active = state.products.filter((p) => p.aktywny).sort((a, b) => a.kolejnosc - b.kolejnosc)
+  const groups = [...new Set(active.map((p) => p.grupaWidoku).filter((g): g is string => !!g))]
+  return [
+    ...active,
+    ...groups.map((g, i) => ({ id: groupId(g), nazwa: `${g} (razem)`, jednostka: 'szt' as const, aktywny: true, kolejnosc: 1000 + i })),
+  ]
+}
+
+/** Id, których faktury pokazać dla wiersza: produkt albo grupa razem z jej produktami. */
+export function invoiceScope(state: AppState, id: string): string[] {
+  if (!isGroupId(id)) return [id]
+  const nazwa = id.slice('grupa:'.length)
+  return [id, ...state.products.filter((p) => p.grupaWidoku === nazwa).map((p) => p.id)]
 }

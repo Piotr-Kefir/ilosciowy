@@ -152,6 +152,12 @@ export function MonthView({ state, update, miesiac, setMiesiac, goToPositions }:
       )}
 
       <MonthTable state={state} miesiac={miesiac} calc={calc.produkty} grupy={calc.grupy} setEntry={setEntry} openInvoices={setInvoiceFor} />
+      <p className="legend small muted">
+        <strong>Różnica</strong> = stan końcowy minus to, co powinno zostać według zapisów. <strong>Minus</strong> — brakuje towaru
+        (straty, niewpisane wydania, kradzież). <strong>Plus</strong> — na półce jest więcej, niż wynika z zapisów: zwykle niewpisana
+        faktura albo receptura zawyżona względem tego, co naprawdę schodzi. Kolory: do {state.settings.progZolty}% zielony, do{' '}
+        {state.settings.progCzerwony}% żółty, powyżej czerwony.
+      </p>
       <p className="totals">
         Razem śledzone produkty: wydane <strong>{fmtZl(calc.sumy.wydane)}</strong> · wpłynęło{' '}
         <strong>
@@ -217,7 +223,7 @@ function MonthTable({
             r.kind === 'p' ? (
               <ProductRow key={r.c.product.id} state={state} miesiac={miesiac} c={r.c} setEntry={setEntry} openInvoices={openInvoices} />
             ) : (
-              <GroupRow key={'g-' + r.g.nazwa} g={r.g} />
+              <GroupRow key={'g-' + r.g.nazwa} state={state} miesiac={miesiac} g={r.g} setEntry={setEntry} openInvoices={openInvoices} />
             ),
           )}
         </tbody>
@@ -375,18 +381,48 @@ function DiffCell({
   )
 }
 
-function GroupRow({ g }: { g: GroupCalc }) {
+/**
+ * Wiersz „… razem” (np. Drożdżówki). Można w nim wpisać to samo co przy produkcie — gdy nie
+ * wiadomo, której drożdżówki dotyczy strata czy zakup. Wpisy grupy dodają się do sum produktów,
+ * a stan początkowy/końcowy grupy (jeśli wpisany) zastępuje sumę produktów.
+ */
+function GroupRow({
+  state,
+  miesiac,
+  g,
+  setEntry,
+  openInvoices,
+}: {
+  state: AppState
+  miesiac: string
+  g: GroupCalc
+  setEntry: <K extends keyof ProductEntry>(productId: string, field: K, v: ProductEntry[K] | undefined) => void
+  openInvoices: (productId: string) => void
+}) {
   const j: Jednostka = 'szt'
+  const e: ProductEntry = state.months[miesiac]?.wpisy[g.id] ?? {}
+  const zProduktow = (total: number, wlasne?: number) =>
+    wlasne !== undefined && total !== wlasne ? <span className="hint">razem z produktami: {fmtQty(total, j)}</span> : null
   return (
     <tr className="group-row">
       <th className="sticky" scope="row">
         {g.nazwa} razem
+        <div className="sub">wpisy tutaj = dla wszystkich {g.nazwa.toLowerCase()}</div>
       </th>
-      <td className="num">
-        <ValView v={g.start} fmt={q(j)} waitLabel="brak" />
+      <td>
+        <NumInput
+          value={e.start}
+          onChange={(v) => setEntry(g.id, 'start', v)}
+          placeholder={g.start.ok ? fmtQty(g.start.v, j) : 'brak'}
+          ariaLabel={`${g.nazwa} razem: stan początkowy`}
+        />
+        {!e.start && g.startZrodlo === 'suma produktów' && <span className="hint">suma produktów</span>}
+        {!e.start && g.startZrodlo === 'poprzedni miesiąc' && <span className="hint">z poprzedniego miesiąca</span>}
       </td>
-      <td className="num">
-        <ValView v={g.zakupy} fmt={q(j)} waitLabel="brak" />
+      <td>
+        <button type="button" className="cell-button" onClick={() => openInvoices(g.id)}>
+          <ValView v={g.zakupy} fmt={q(j)} />
+        </button>
       </td>
       <td className="num">
         <ValView v={g.sprzedaz} fmt={q(j)} />
@@ -394,15 +430,36 @@ function GroupRow({ g }: { g: GroupCalc }) {
           <ValView v={g.sprzedazZl} fmt={fmtZl} waitLabel="brak" />
         </div>
       </td>
-      <td className="num">
-        {fmtQty(g.pracIlosc, j)}
-        <div className="sub">{fmtZl(g.pracKwota)}</div>
+      <td>
+        <NumInput
+          value={e.pracownicyIlosc}
+          onChange={(v) => setEntry(g.id, 'pracownicyIlosc', v)}
+          placeholder="0"
+          ariaLabel={`${g.nazwa} razem: pracownicy ilość`}
+        />
+        {zProduktow(g.pracIlosc, e.pracownicyIlosc?.value ?? 0)}
+        <NumInput
+          value={e.pracownicyKwota}
+          onChange={(v) => setEntry(g.id, 'pracownicyKwota', v)}
+          placeholder="0 zł"
+          ariaLabel={`${g.nazwa} razem: pracownicy kwota zł`}
+          className="zl"
+        />
       </td>
-      <td className="num">{fmtQty(g.straty, j)}</td>
-      <td className="num">
-        <ValView v={g.koniec} fmt={q(j)} waitLabel="brak" />
+      <td>
+        <NumInput value={e.straty} onChange={(v) => setEntry(g.id, 'straty', v)} placeholder="0" ariaLabel={`${g.nazwa} razem: straty`} />
+        {zProduktow(g.straty, e.straty?.value ?? 0)}
       </td>
-      <DiffCell roznica={g.roznica} pct={g.roznicaPct} zl={g.roznicaZl} alarm={g.alarm} j={j} />
+      <td>
+        <NumInput
+          value={e.koniec}
+          onChange={(v) => setEntry(g.id, 'koniec', v)}
+          placeholder={g.koniec.ok ? fmtQty(g.koniec.v, j) : 'brak'}
+          ariaLabel={`${g.nazwa} razem: stan końcowy`}
+        />
+        {!e.koniec && g.koniec.ok && <span className="hint">suma produktów</span>}
+      </td>
+      <DiffCell roznica={g.roznica} pct={g.roznicaPct} zl={g.roznicaZl} alarm={g.alarm} j={j} oczekiwany={g.oczekiwany} />
       <td className="num">
         <ValView v={g.wydane} fmt={fmtZl} />
       </td>
@@ -411,6 +468,7 @@ function GroupRow({ g }: { g: GroupCalc }) {
       </td>
       <td className="num">
         <ValView v={g.marza} fmt={fmtZl} compact />
+        {g.marzaPct.ok && <div className="sub">{fmtPct(g.marzaPct.v)}</div>}
       </td>
     </tr>
   )
