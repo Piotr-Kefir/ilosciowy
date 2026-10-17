@@ -20,6 +20,10 @@ export function InvoicesPanel({ state, update, miesiac, productId, onClose }: Pr
   const all = invoicesInMonth(state, miesiac).sort((a, b) => a.data.localeCompare(b.data))
   const scope = productId ? invoiceScope(state, productId) : null
   const list = scope ? all.filter((i) => i.linie.some((l) => scope.includes(l.productId))) : all
+  // Faktury z datą w tym miesiącu, ale rozliczone w innym — nie liczą się tutaj, a łatwo o nich zapomnieć.
+  const moved = state.invoices
+    .filter((i) => i.data.slice(0, 7) === miesiac && i.miesiacRozliczenia !== miesiac)
+    .filter((i) => !scope || i.linie.some((l) => scope.includes(l.productId)))
   const product = invoiceTargets(state).find((p) => p.id === productId)
   const entry = productId ? state.months[miesiac]?.wpisy[productId] : undefined
   const pname = (id: string) => invoiceTargets(state).find((p) => p.id === id)?.nazwa ?? id
@@ -72,6 +76,22 @@ export function InvoicesPanel({ state, update, miesiac, productId, onClose }: Pr
         </p>
       )}
       {list.length === 0 && <p className="muted">Brak faktur{product ? ' na ten produkt' : ''} w tym miesiącu.</p>}
+      {moved.length > 0 && (
+        <div className="alert alert-yellow">
+          <strong>Faktury z datą w tym miesiącu, rozliczone w innym miesiącu</strong> (nie liczą się tutaj):
+          <ul>
+            {moved.map((i) => (
+              <li key={i.id}>
+                {i.bezFaktury ? 'bez faktury' : i.numer} z {fmtDate(i.data)} → rozliczona w: <strong>{monthLabel(i.miesiacRozliczenia)}</strong>{' '}
+                <button type="button" onClick={() => setEditing(structuredClone(i))}>
+                  Edytuj
+                </button>
+              </li>
+            ))}
+          </ul>
+          Jeśli powinna liczyć się tutaj, kliknij „Edytuj” i zmień „Rozliczyć w miesiącu”.
+        </div>
+      )}
       {list.length > 0 && (
         <div className="table-scroll">
           <table className="grid">
